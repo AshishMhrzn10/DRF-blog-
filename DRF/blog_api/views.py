@@ -5,6 +5,7 @@ from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAdminUser
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from rest_framework import filters
 
 class PostUserWritePermission(BasePermission):
     message = "Editing posts is restricted to user only."
@@ -15,16 +16,41 @@ class PostUserWritePermission(BasePermission):
         
         return obj.author == request.user
 
-class PostList(viewsets.ModelViewSet):
-    permission_classes = [PostUserWritePermission]
+class PostList(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = PostSerializer
 
-    def get_object(self, queryset=None, **kwargs):
-        item = self.kwargs.get('pk')
-        return get_object_or_404(Post, slug=item)
+    def get_queryset(self):
+        user = self.request.user
+        return Post.objects.filter(author=user)
+    
+
+class PostDetail(generics.ListAPIView):
+    serializer_class = PostSerializer
 
     def get_queryset(self):
-        return Post.postobjects.all()
+        slug = self.request.query_params.get('slug', None)
+        return Post.objects.filter(slug=slug)
+
+class PostListDetailFilter(generics.ListAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['^slug']
+    
+
+
+
+# class PostList(viewsets.ModelViewSet):
+#     permission_classes = [PostUserWritePermission]
+#     serializer_class = PostSerializer
+
+#     def get_object(self, queryset=None, **kwargs):
+#         item = self.kwargs.get('pk')
+#         return get_object_or_404(Post, slug=item)
+
+#     def get_queryset(self):
+#         return Post.postobjects.all()
     
 
 # class PostList(viewsets.ViewSet):
