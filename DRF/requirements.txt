@@ -10,6 +10,8 @@ chrome-gnome-shell==0.0.0
 click==7.1.2
 colorama==0.4.3
 command-not-found==0.3
+coreapi==2.3.3
+coreschema==0.0.4
 coverage==5.3
 cryptography==3.0
 cupshelpers==1.0
@@ -27,7 +29,9 @@ gyp==0.1
 httplib2==0.18.1
 idna==2.10
 isort==5.6.4
+itypes==1.2.0
 jeepney==0.4.3
+Jinja2==2.11.2
 keyring==21.3.0
 language-selector==0.1
 launchpadlib==1.10.13
@@ -67,6 +71,7 @@ ubuntu-advantage-tools==24.4
 ubuntu-drivers-common==0.0.0
 ufw==0.36
 unattended-upgrades==0.1
+uritemplate==3.0.1
 urllib3==1.25.9
 usb-creator==0.3.7
 virtualenv==20.1.0
