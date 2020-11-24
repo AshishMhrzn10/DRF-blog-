@@ -32,6 +32,7 @@ class PostDetail(generics.ListAPIView):
         slug = self.request.query_params.get('slug', None)
         return Post.objects.filter(slug=slug)
 
+# Post search
 class PostListDetailFilter(generics.ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -39,6 +40,25 @@ class PostListDetailFilter(generics.ListAPIView):
     search_fields = ['^slug']
     
 
+class CreatePost(generics.CreateAPIView):
+    permission_classes=[IsAuthenticated]
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+class AdminPostDetail(generics.RetrieveAPIView):
+    permission_classes=[IsAuthenticated]
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+class EditPost(generics.UpdateAPIView):
+    permission_classes=[IsAuthenticated]
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+class DeletePost(generics.RetrieveDestroyAPIView):
+    permission_classes=[IsAuthenticated]
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
 
 
 # class PostList(viewsets.ModelViewSet):
