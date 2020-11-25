@@ -81,6 +81,15 @@ function Header() {
 						href="#"
 						color="primary"
 						variant="outlined"
+						component={NavLink}
+						to="/admin"
+					>
+						Admin
+					</Button>
+					<Button
+						href="#"
+						color="primary"
+						variant="outlined"
 						className={classes.link}
 						component={NavLink}
 						to="/login"
